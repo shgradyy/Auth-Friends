@@ -1,5 +1,6 @@
 import React from 'react';
-import axios from 'axios';
+
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 class Login extends React.Component {
   state = {
@@ -20,11 +21,11 @@ class Login extends React.Component {
 
   login = e => {
     e.preventDefault();
-    axios
+    axiosWithAuth()
         .post('/login', this.state.credentials)
         .then(res => {
             console.log("bk: Login.js: login: success: res: ", res);
-            localStorage.setItem("token", res.data.payload);
+           localStorage.setItem("token", res.data.payload);
             this.props.history.push("/friends");
         })
         .catch(err => console.error(err));
